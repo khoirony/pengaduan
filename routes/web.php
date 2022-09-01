@@ -54,6 +54,7 @@ Route::get('/tambahaduan', [MahasiswaController::class, 'tambahaduan'])->middlew
 Route::post('/tambahaduan', [MahasiswaController::class, 'storeaduan'])->middleware('auth');
 Route::get('/historyaduan', [MahasiswaController::class, 'historyaduan'])->middleware('auth');
 Route::get('/editaduan/{id}', [MahasiswaController::class, 'editaduan'])->middleware('auth');
+Route::get('/hapusaduan/{id}', [MahasiswaController::class, 'hapusaduan'])->middleware('auth');
 
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
 Route::post('/profile', [ProfileController::class, 'edit'])->middleware('auth');

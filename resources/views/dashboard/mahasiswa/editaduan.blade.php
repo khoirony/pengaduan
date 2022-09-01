@@ -51,8 +51,6 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-secondary">Reset</button>
-                    <a href="/hapusaduan/{{ $aduan->id }}" class="btn btn-danger">Hapus</a>
                 </div>
             </form><!-- End floating Labels Form -->
 

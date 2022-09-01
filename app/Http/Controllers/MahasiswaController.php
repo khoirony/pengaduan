@@ -35,11 +35,17 @@ class MahasiswaController extends Controller
     {
         $request->validate([
             'aduan' => 'required',
+            'gambar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5048',
         ]);
-
+        $file = $request->file('gambar');
+        $name = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'aduan';
+	    $file->move($tujuan_upload,$name);
+           
         $aduan = new Aduan;
         $aduan->id_mahasiswa = $request->input('id');
         $aduan->isi_aduan = $request->input('aduan');
+        $aduan->gambar = $name;
         $aduan->id_pegawai = 1;
         $aduan->status = 0;
         $aduan->save();
@@ -64,5 +70,34 @@ class MahasiswaController extends Controller
             'aduan' => $aduan,
             'id' => $id
         ]);
+    }
+
+    public function storeedit(Request $request)
+    {
+        $request->validate([
+            'aduan' => 'required',
+            'gambar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5048',
+        ]);
+        
+        $file = $request->file('gambar');
+        $name = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'aduan';
+	    $file->move($tujuan_upload,$name);
+           
+        $aduan = new Aduan;
+        $aduan->id_mahasiswa = $request->input('id');
+        $aduan->isi_aduan = $request->input('aduan');
+        $aduan->gambar = $name;
+        $aduan->id_pegawai = 1;
+        $aduan->status = 0;
+        $aduan->save();
+
+        return redirect('/tambahaduan')->with('success', 'Aduan Sukses Terkirim');
+    }
+
+    public function hapusaduan($id)
+    {
+        $aduan = Aduan::where('id', $id)->delete();
+        return redirect('/historyaduan')->with('success', 'Aduan Berhasil Dihapus');
     }
 }
