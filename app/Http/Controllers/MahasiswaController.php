@@ -11,8 +11,16 @@ class MahasiswaController extends Controller
 {
     public function index()
     {
+        $aduanmasuk  = Aduan::where('status', 0)->where('id_mahasiswa', Auth::user()->id)->count();
+        $aduandiproses  = Aduan::where('status', 1)->where('id_mahasiswa', Auth::user()->id)->count();
+        $aduanselesai  = Aduan::where('status', 2)->where('id_mahasiswa', Auth::user()->id)->count();
+        $aduanditolak  = Aduan::where('status', 9)->where('id_mahasiswa', Auth::user()->id)->count();
         return view('dashboard.mahasiswa.index', [
             'title' => 'Dashboard',
+            'aduanmasuk' => $aduanmasuk,
+            'aduandiproses' => $aduandiproses,
+            'aduanselesai' => $aduanselesai,
+            'aduanditolak' => $aduanditolak
         ]);
     }
 
@@ -45,6 +53,16 @@ class MahasiswaController extends Controller
         return view('dashboard.mahasiswa.historyaduan', [
             'title' => 'History Aduan',
             'aduan' => $aduan
+        ]);
+    }
+
+    public function editaduan($id)
+    {
+        $aduan  = Aduan::where('id', $id)->first();
+        return view('dashboard.mahasiswa.editaduan', [
+            'title' => 'Kelola Aduan',
+            'aduan' => $aduan,
+            'id' => $id
         ]);
     }
 }

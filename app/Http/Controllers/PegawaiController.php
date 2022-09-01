@@ -29,7 +29,7 @@ class PegawaiController extends Controller
 
     public function aduanmasuk()
     {
-        $aduanmasuk  = Aduan::where('status', 0)->get();
+        $aduanmasuk  = Aduan::where('status', 0)->orderBy('created_at', 'desc')->get();
         return view('dashboard.pegawai.aduanmasuk', [
             'title' => 'Pengaduan Masuk',
             'aduanmasuk' => $aduanmasuk
@@ -54,21 +54,51 @@ class PegawaiController extends Controller
         $aduan->status = 1;
         $aduan->update();
 
-        return redirect('/aduanmasuk')->with('success', 'Aduan Sukses Ditanggapi');
+        return redirect('/aduanmasuk')->with('success', 'Aduan Berhasil Ditanggapi');
+    }
+
+    public function tolakaduan($id)
+    {
+        $aduan  = Aduan::where('id', $id)->first();
+        return view('dashboard.pegawai.tolakaduan', [
+            'title' => 'Tolak Aduan',
+            'aduan' => $aduan,
+            'id' => $id
+        ]);
+    }
+
+    public function storetolak(Request $request)
+    {
+        $aduan = Aduan::find($request->input('id'));
+        $aduan->id_pegawai = Auth::user()->id;
+        $aduan->tanggapan = $request->input('tanggapan');
+        $aduan->status = 9;
+        $aduan->update();
+
+        return redirect('/aduanmasuk')->with('success', 'Aduan Berhasil Ditolak');
     }
 
     public function aduandiproses()
     {
-        $aduandiproses  = Aduan::where('status', 1)->get();
+        $aduandiproses  = Aduan::where('status', 1)->orderBy('updated_at', 'desc')->get();
         return view('dashboard.pegawai.aduandiproses', [
             'title' => 'Pengaduan Diproses',
             'aduandiproses' => $aduandiproses
         ]);
     }
 
+    public function selesaikanaduan($id)
+    {
+        $aduan = Aduan::find($id);
+        $aduan->status = 2;
+        $aduan->update();
+
+        return redirect('/aduandiproses')->with('success', 'Aduan Berhasil Diselesaikan');
+    }
+
     public function aduanditolak()
     {
-        $aduanditolak  = Aduan::where('status', 9)->get();
+        $aduanditolak  = Aduan::where('status', 9)->orderBy('updated_at', 'desc')->get();
         return view('dashboard.pegawai.aduanditolak', [
             'title' => 'Pengaduan Ditolak',
             'aduanditolak' => $aduanditolak
@@ -77,10 +107,31 @@ class PegawaiController extends Controller
 
     public function aduanselesai()
     {
-        $aduanselesai  = Aduan::where('status', 2)->get();
+        $aduanselesai  = Aduan::where('status', 2)->orderBy('updated_at', 'desc')->get();
         return view('dashboard.pegawai.aduanselesai', [
             'title' => 'Pengaduan Selesai',
             'aduanselesai' => $aduanselesai
         ]);
+    }
+
+    public function edittanggapan($id)
+    {
+        $aduan  = Aduan::where('id', $id)->first();
+        return view('dashboard.pegawai.edittanggapan', [
+            'title' => 'Edit Tanggapan',
+            'aduan' => $aduan,
+            'id' => $id
+        ]);
+    }
+
+    public function storeedit(Request $request)
+    {
+        $aduan = Aduan::find($request->input('id'));
+        $aduan->id_pegawai = Auth::user()->id;
+        $aduan->tanggapan = $request->input('tanggapan');
+        $aduan->status = 0;
+        $aduan->update();
+
+        return redirect('/aduanmasuk')->with('success', 'Aduan Berhasil Diedit');
     }
 }

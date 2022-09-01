@@ -25,7 +25,7 @@
               <i class="ri ri-mail-send-line"></i>
             </div>
             <div class="ps-3">
-              <h6>35</h6>
+              <h6>{{ $aduanmasuk }}</h6>
               <span class="text-success small pt-1 fw-bold">Pengaduan</span>
             </div>
           </div>
@@ -42,7 +42,7 @@
               <i class="ri ri-mail-settings-line text-warning"></i>
             </div>
             <div class="ps-3">
-              <h6>35</h6>
+              <h6>{{ $aduandiproses }}</h6>
               <span class="text-success small pt-1 fw-bold">Pengaduan</span>
             </div>
           </div>
@@ -59,7 +59,7 @@
               <i class="ri ri-mail-close-line text-danger"></i>
             </div>
             <div class="ps-3">
-              <h6>35</h6>
+              <h6>{{ $aduanditolak }}</h6>
               <span class="text-success small pt-1 fw-bold">Pengaduan</span>
             </div>
           </div>
@@ -76,7 +76,7 @@
               <i class="ri ri-mail-check-line text-success"></i>
             </div>
             <div class="ps-3">
-              <h6>35</h6>
+              <h6>{{ $aduanselesai }}</h6>
               <span class="text-success small pt-1 fw-bold">Pengaduan</span>
             </div>
           </div>

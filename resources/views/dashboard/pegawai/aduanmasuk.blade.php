@@ -65,7 +65,7 @@
                     @break
               @endswitch
             </td>
-            <td><a href="/tanggapiaduan/{{ $amasuk->id }}" class="btn btn-sm btn-primary">Tanggapi</a><a href="/tolakaduan/" class="btn btn-sm btn-danger ms-2">Tolak</a></td>
+            <td><a href="/tanggapiaduan/{{ $amasuk->id }}" class="btn btn-sm btn-primary">Tanggapi</a><a href="/tolakaduan/{{ $amasuk->id }}" class="btn btn-sm btn-danger ms-2">Tolak</a></td>
           </tr>
           @endforeach
         </tbody>

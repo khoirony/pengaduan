@@ -49,7 +49,7 @@
                     @break
               @endswitch
             </td>
-            @if ($a->status != 0)    
+            @if ($a->status == 1 && $a->status == 2)    
               <td>{{ $a->tanggapan }}</td>
               <td>{{ $a->pegawai->nama }}</td>
               <td></td>
@@ -57,7 +57,7 @@
               <td>-Belum Ada-</td>
               <td>-Belum Ada-</td>
               <td>
-                <a href="/batalkanaduan/{{ $a->id }}" class="btn btn-sm btn-danger">Batalkan</a>
+                <a href="/editaduan/{{ $a->id }}" class="btn btn-sm btn-primary">Edit</a>
               </td>
             @endif
           </tr>

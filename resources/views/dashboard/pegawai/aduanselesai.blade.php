@@ -57,7 +57,7 @@
                     @break
               @endswitch
             </td>
-            <td><a href="/editpegawai/" class="btn btn-sm btn-success">Selesaikan</a></td>
+            <td><a href="/edittanggapan/{{ $selesai->id }}" class="btn btn-sm btn-primary">Edit</a></td>
           </tr>
           @endforeach
         </tbody>
