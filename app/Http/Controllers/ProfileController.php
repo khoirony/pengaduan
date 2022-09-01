@@ -21,9 +21,19 @@ class ProfileController extends Controller
 
     public function edit(Request $request)
     {
+        $request->validate([
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5048',
+        ]);
+
+        $file = $request->file('image');
+        $name = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'profpic';
+	    $file->move($tujuan_upload,$name);
+
         $user = User::find($request->input('id'));
         $user->kode = $request->input('kode');
         $user->nama = $request->input('nama');
+        $user->image = $name;
         $user->tentang = $request->input('tentang');
         $user->jurusan = $request->input('jurusan');
         $user->fakultas = $request->input('fakultas');

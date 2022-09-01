@@ -32,10 +32,10 @@
             <!-- Floating Labels Form -->
             <form class="row g-3" action="/editaduan" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" id="id" value="{{ Auth::user()->id }}">
+                <input type="hidden" name="id" id="id" value="{{ $aduan->id }}">
                 <div class="col-12 mt-5">
                     <div class="form-floating">
-                        <textarea class="form-control @error('aduan') is-invalid @enderror" name="aduan" id="aduan" style="height: 250px;" required>{{ $aduan->tanggapan }}</textarea>
+                        <textarea class="form-control @error('aduan') is-invalid @enderror" name="aduan" id="aduan" style="height: 250px;" required>{{ $aduan->isi_aduan }}</textarea>
                         <label for="floatingTextarea">Masukkan Keluhan</label>
                         @error('aduan')
                         <div id="validationServer03Feedback" class="invalid-feedback">
@@ -44,7 +44,6 @@
                         @enderror
                     </div>
                 </div>
-
                 <div class="col-12">
                   <input class="form-control" type="file" name="gambar" id="gambar">
                 </div>

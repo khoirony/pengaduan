@@ -39,7 +39,11 @@
             <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
+                    @if (Auth::user()->image == null)
                     <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    @else
+                    <img src="{{ url('/profpic/'.Auth::user()->image) }}" alt="Profile" class="rounded-circle">
+                    @endif
                     <h2>{{ Auth::user()->nama }}</h2>
                     <h3>{{ Auth::user()->email }}</h3>
                 </div>
@@ -130,7 +134,11 @@
                                     <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                         Image</label>
                                     <div class="col-md-8 col-lg-9">
+                                        @if (Auth::user()->image == null)
                                         <img src="/img/profile-img.jpg" alt="Profile">
+                                        @else
+                                        <img src="{{ url('/profpic/'.Auth::user()->image) }}" alt="Profile">
+                                        @endif
                                         <div class="pt-2">
                                             <input name="image" id="image" type="file" class="form-control">
                                         </div>

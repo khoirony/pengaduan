@@ -3,15 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SolusiController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\TerbobotController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\AlternatifController;
-use App\Http\Controllers\PreferensiController;
-use App\Http\Controllers\NormalisasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,18 +37,15 @@ Route::get('/aduandiproses', [PegawaiController::class, 'aduandiproses'])->middl
 Route::get('/aduanditolak', [PegawaiController::class, 'aduanditolak'])->middleware('auth');
 Route::get('/aduanselesai', [PegawaiController::class, 'aduanselesai'])->middleware('auth');
 
-Route::get('/tanggapiaduan/{id}', [PegawaiController::class, 'tanggapiaduan'])->middleware('auth');
-Route::post('/tanggapiaduan', [PegawaiController::class, 'storetanggapan'])->middleware('auth');
-Route::get('/tolakaduan/{id}', [PegawaiController::class, 'tolakaduan'])->middleware('auth');
-Route::post('/tolakaduan', [PegawaiController::class, 'storetolak'])->middleware('auth');
-Route::get('/edittanggapan/{id}', [PegawaiController::class, 'edittanggapan'])->middleware('auth');
-Route::post('/edittanggapan', [PegawaiController::class, 'storeedit'])->middleware('auth');
-Route::get('/selesaikanaduan/{id}', [PegawaiController::class, 'selesaikanaduan'])->middleware('auth');
+Route::get('/kelolatanggapan/{id}', [PegawaiController::class, 'kelolatanggapan'])->middleware('auth');
+Route::post('/kelolatanggapan', [PegawaiController::class, 'storetanggapan'])->middleware('auth');
+Route::get('/hapustanggapan/{id}', [PegawaiController::class, 'hapustanggapan'])->middleware('auth');
 
 Route::get('/tambahaduan', [MahasiswaController::class, 'tambahaduan'])->middleware('auth');
 Route::post('/tambahaduan', [MahasiswaController::class, 'storeaduan'])->middleware('auth');
 Route::get('/historyaduan', [MahasiswaController::class, 'historyaduan'])->middleware('auth');
 Route::get('/editaduan/{id}', [MahasiswaController::class, 'editaduan'])->middleware('auth');
+Route::post('/editaduan/', [MahasiswaController::class, 'storeedit'])->middleware('auth');
 Route::get('/hapusaduan/{id}', [MahasiswaController::class, 'hapusaduan'])->middleware('auth');
 
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');

@@ -56,21 +56,46 @@
             <td>
               @switch($tolak->status)
                   @case(0)
-                    {{ 'Menunggu' }}
+                    <span class="badge bg-primary">{{ 'Menunggu' }}</span>
                     @break
                   @case(1)
-                    {{ 'Sedang Diproses' }}
+                  <span class="badge bg-warning">{{ 'Sedang Diproses' }}</span>
                     @break
                   @case(2)
-                    {{ 'Selesai' }}
+                    <span class="badge bg-success">{{ 'Selesai' }}</span>
                     @break
                   @case(9)
-                    {{ 'Ditolak' }}
+                    <span class="badge bg-danger">{{ 'Ditolak' }}</span>
                     @break
               @endswitch
             </td>
-            <td><a href="/edittanggapan/" class="btn btn-sm btn-primary">Edit</a></td>
+            <td>
+              <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#id{{ $tolak->id }}"><i class="bi bi-image"></i></button>
+              <a href="/kelolatanggapan/{{ $tolak->id }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></a> 
+              <a href="/hapustanggapan/{{ $tolak->id }}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+            </td>
           </tr>
+          <div class="modal fade" id="id{{ $tolak->id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content w-100">
+                <div class="modal-header">
+                  <h5 class="modal-title">Gambar Bukti</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @if($tolak->gambar != null)
+                  <div class="text-center">
+                    <img src="{{ url('/aduan/'.$tolak->gambar) }}" alt="gambar" class="w-100">
+                  </div>
+                  @else
+                  <div class="text-center">
+                    -kosong-
+                  </div>
+                  @endif
+                </div>
+              </div>
+            </div>
+          </div>
           @endforeach
         </tbody>
       </table>

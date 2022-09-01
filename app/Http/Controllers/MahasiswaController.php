@@ -68,7 +68,6 @@ class MahasiswaController extends Controller
         return view('dashboard.mahasiswa.editaduan', [
             'title' => 'Kelola Aduan',
             'aduan' => $aduan,
-            'id' => $id
         ]);
     }
 
@@ -83,16 +82,14 @@ class MahasiswaController extends Controller
         $name = time()."_".$file->getClientOriginalName();
         $tujuan_upload = 'aduan';
 	    $file->move($tujuan_upload,$name);
-           
-        $aduan = new Aduan;
-        $aduan->id_mahasiswa = $request->input('id');
+        
+        $aduan = Aduan::find($request->input('id'));
         $aduan->isi_aduan = $request->input('aduan');
         $aduan->gambar = $name;
-        $aduan->id_pegawai = 1;
         $aduan->status = 0;
-        $aduan->save();
+        $aduan->update();
 
-        return redirect('/tambahaduan')->with('success', 'Aduan Sukses Terkirim');
+        return redirect('/historyaduan')->with('success', 'Aduan Sukses Diedit');
     }
 
     public function hapusaduan($id)
