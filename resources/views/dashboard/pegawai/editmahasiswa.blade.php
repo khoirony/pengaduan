@@ -7,11 +7,29 @@
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Home</li>
+            @if(Auth::user()->role == 1)
             <li class="breadcrumb-item">Admin</li>
+            @elseif(Auth::user()->role == 2)
+            <li class="breadcrumb-item">Pegawai</li>
+            @endif
             <li class="breadcrumb-item active">{{ $title }}</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
+
+@if(session()->has('success'))
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if(session()->has('error'))
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
 <section class="section dashboard">
     <div class="row">
@@ -19,18 +37,19 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Form Pegawai</h5>
+                    <h5 class="card-title">Form Mahasiswa</h5>
 
                     <!-- Vertical Form -->
-                    <form action="/tambahpegawai" method="POST" class="row g-3">
+                    <form action="/editmahasiswa" method="POST" class="row g-3">
                         @csrf
+                        <input type="hidden" name="id" id="id" value="{{ $mahasiswa->id }}">
                         <div class="col-12">
                             <label for="name" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="nama" id="nama">
+                            <input type="text" class="form-control" name="nama" id="nama" value="{{ $mahasiswa->nama }}">
                         </div>
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" id="email">
+                            <input type="email" class="form-control" name="email" id="email" value="{{ $mahasiswa->email }}">
                         </div>
                         <div class="col-12">
                             <label for="password" class="form-label">Password</label>
@@ -55,7 +74,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Daftar Pegawai</h5>
+                    <h5 class="card-title">Daftar Mahasiswa</h5>
 
                     <table class="table table-striped">
                         <thead>
@@ -63,6 +82,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Jurusan</th>
                                 <th scope="col" width="17%">aksi</th>
                             </tr>
                         </thead>
@@ -72,9 +92,11 @@
                                 <th scope="row">{{ $n++ }}</th>
                                 <td>{{ $u->nama }}</td>
                                 <td>{{ $u->email }}</td>
-                                <td><a href="/editpegawai/{{ $u->id }}" class="btn btn-sm btn-primary"><i
-                                            class="bi bi-pencil-square"></i></a> <a href="/hapuspegawai/{{ $u->id }}"
-                                        class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a></td>
+                                <td>{{ $u->jurusan }}</td>
+                                <td>
+                                  <a href="/editmahasiswa/{{ $u->id }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></a> 
+                                  <a href="/hapusmahasiswa/{{ $u->id }}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

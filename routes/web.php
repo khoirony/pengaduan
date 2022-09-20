@@ -31,7 +31,17 @@ Route::get('/pegawai', [PegawaiController::class, 'index'])->middleware('auth');
 Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->middleware('auth');
 
 Route::get('/tambahpegawai', [AdminController::class, 'tambahpegawai'])->middleware('auth');
+Route::post('/tambahpegawai', [AdminController::class, 'storepegawai'])->middleware('auth');
+Route::get('/editpegawai/{id}', [AdminController::class, 'editpegawai'])->middleware('auth');
+Route::post('/editpegawai', [AdminController::class, 'updatepegawai'])->middleware('auth');
+Route::get('/hapuspegawai/{id}', [AdminController::class, 'hapuspegawai'])->middleware('auth');
+
 Route::get('/tambahmahasiswa', [PegawaiController::class, 'tambahmahasiswa'])->middleware('auth');
+Route::post('/tambahmahasiswa', [PegawaiController::class, 'storemahasiswa'])->middleware('auth');
+Route::get('/editmahasiswa/{id}', [PegawaiController::class, 'editmahasiswa'])->middleware('auth');
+Route::post('/editmahasiswa', [PegawaiController::class, 'updatemahasiswa'])->middleware('auth');
+Route::get('/hapusmahasiswa/{id}', [PegawaiController::class, 'hapusmahasiswa'])->middleware('auth');
+
 Route::get('/aduanmasuk', [PegawaiController::class, 'aduanmasuk'])->middleware('auth');
 Route::get('/aduandiproses', [PegawaiController::class, 'aduandiproses'])->middleware('auth');
 Route::get('/aduanditolak', [PegawaiController::class, 'aduanditolak'])->middleware('auth');

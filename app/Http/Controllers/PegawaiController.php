@@ -27,6 +27,56 @@ class PegawaiController extends Controller
         ]);
     }
 
+    public function storemahasiswa(Request $request)
+    {   
+        if(strcmp($request->input('repassword'), $request->input('password')) != 0){
+            return redirect()->back()->with('error','Password dan repassword tidak boleh berbeda.');
+        }
+
+        $user = new User;
+        $user->nama = $request->input('nama');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->role = 3;
+        $user->save();
+
+        return redirect('/tambahmahasiswa')->with('success', 'Mahasiswa Berhasil Ditambah');
+    }
+
+    public function editmahasiswa($id)
+    {
+        $user   = User::where('role', 3)->paginate(10);
+        $mahasiswa = User::where('id', $id)->first();
+        return view('dashboard.pegawai.editmahasiswa', [
+            'title' => 'Edit Mahasiswa',
+            'user' => $user,
+            'mahasiswa' => $mahasiswa,
+            'n' => 1
+        ]);
+    }
+
+    public function updatemahasiswa(Request $request)
+    {   
+        if(strcmp($request->input('repassword'), $request->input('password')) != 0){
+            return redirect()->back()->with('error','Password dan repassword tidak boleh berbeda.');
+        }
+
+        $user = User::find($request->input('id'));
+        $user->nama = $request->input('nama');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->role = 3;
+        $user->update();
+
+        return redirect('/tambahmahasiswa')->with('success', 'Mahasiswa Berhasil Ditambah');
+    }
+
+    public function hapusmahasiswa($id)
+    {
+        $user = User::where('id', $id)->delete();
+        return redirect('/tambahmahasiswa')->with('success', 'Mahasiswa Berhasil Dihapus');
+    }
+
     public function aduanmasuk()
     {
         $aduanmasuk  = Aduan::where('status', 0)->orderBy('created_at', 'desc')->get();
